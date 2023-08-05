@@ -77,7 +77,10 @@ function App() {
         <div className="center p-5">
           <Routes>
             <Route element={<AllPosts />} path="/" exact />
-            <Route element={<Login />} path="/login" />
+            <Route
+              element={<Login setAlert={setAlert} setUser={setUser} />}
+              path="/login"
+            />
             <Route
               element={<Signup setAlert={setAlert} setUser={setUser} />}
               path="/sign-up"

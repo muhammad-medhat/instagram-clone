@@ -1,7 +1,15 @@
 h1{text-transform: capitalize;}
 
 .center{
-    display: flex;
-    justify-content: center;
+    height: 100%;
     align-items: center;
+    display: flex;
+    flex-direction: column;
 }
+.center-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+  }
