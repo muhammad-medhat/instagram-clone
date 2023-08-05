@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const Signup = () => {
+const Signup = ({ setAlert }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -33,10 +33,10 @@ const Signup = () => {
         return res.json();
       })
       .then((data) => {
-        // setAlert({
-        //   variant: "success",
-        //   message: "Your account has been created.",
-        // });
+        setAlert({
+          variant: "success",
+          message: "Your account has been created.",
+        });
         // setUser(data.username);
         navigate("/");
       })

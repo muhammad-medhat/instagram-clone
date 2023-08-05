@@ -13,6 +13,8 @@ import Signup from "./Signup";
 
 import "../css/App.css";
 function App() {
+  const [alert, setAlert] = useState(null);
+
   return (
     <div className="">
       <BrowserRouter>
@@ -44,12 +46,15 @@ function App() {
               </Nav>
             </Navbar.Collapse>
           </Container>
-        </Navbar>
+        </Navbar>{" "}
+        {alert ? (
+          <AlertDismissible {...alert} deleteAlert={() => setAlert(null)} />
+        ) : null}
         <div className="center p-5">
           <Routes>
             <Route element={<AllPosts />} path="/" exact />
             <Route element={<Login />} path="/login" />
-            <Route element={<Signup />} path="sign-up" />
+            <Route element={<Signup setAlert={setAlert} />} path="sign-up" />
             <Route element={<Profile />} path="/profile:username" />
             <Route element={<Search />} path="Search" />
             <Route element={<CreatePost />} path="create-post" />
