@@ -36,7 +36,10 @@ function App() {
               </Nav>
               <Nav>
                 <Navbar.Text>
-                  <Link to="/login">Not signed im</Link>
+                  <Link to="/login">Not signed in</Link>
+                </Navbar.Text>
+                <Navbar.Text className="mx-2">
+                  <Link to="/sign-up">Signup</Link>
                 </Navbar.Text>
               </Nav>
             </Navbar.Collapse>
