@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const Signup = ({ setAlert }) => {
+const Signup = ({ setAlert, setUser }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -17,6 +17,14 @@ const Signup = ({ setAlert }) => {
     setLastName(e.target.value);
   };
   const createAccount = (e) => {
+    console.log(
+      "jjjj",
+      JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+      })
+    );
     const requestOptions = {
       method: "POST",
       headers: {
@@ -33,14 +41,18 @@ const Signup = ({ setAlert }) => {
         return res.json();
       })
       .then((data) => {
+        console.log(data);
         setAlert({
           variant: "success",
           message: "Your account has been created.",
         });
-        // setUser(data.username);
+        setUser(data.username);
         navigate("/");
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error("xxx", err);
+        //setAlert({ variant: "danger", message: err });
+      });
   };
 
   return (

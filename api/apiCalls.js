@@ -6,6 +6,10 @@ import { nanoid } from "nanoid";
 const functions = {};
 
 functions.createUser = (firstName, lastName, username) => {
+  console.log("inp", firstName, lastName, username);
+  /**
+   * unknown bug username is not sent correctly from frontend
+   */
   return sanityClient.create({
     _type: "user",
     first_name: firstName,
