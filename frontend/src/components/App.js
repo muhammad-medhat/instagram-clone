@@ -15,7 +15,31 @@ import "../css/App.css";
 function App() {
   const [alert, setAlert] = useState(null);
   const [user, setUser] = useState("");
-
+  const userCheck = () => {
+    debugger;
+    return user ? (
+      <Navbar.Text>
+        Signed in as: <Link to={"/profile/" + user}>{user}</Link> |{" "}
+        <Button
+          type="button"
+          variant="primary"
+          onClick={() => {
+            setUser("");
+            setAlert({
+              variant: "warning",
+              message: "You are now signed out!",
+            });
+          }}
+        >
+          Logout
+        </Button>
+      </Navbar.Text>
+    ) : (
+      <Navbar.Text>
+        <Link to="/login">Not Signed In</Link>
+      </Navbar.Text>
+    );
+  };
   return (
     <div className="">
       <BrowserRouter>
@@ -38,28 +62,7 @@ function App() {
                 </LinkContainer>
               </Nav>
               <Nav>
-                {user ? (
-                  <Navbar.Text>
-                    Signed in as: <Link to={"/profile/" + user}>{user}</Link> |{" "}
-                    <Button
-                      type="button"
-                      variant="primary"
-                      onClick={() => {
-                        setUser("");
-                        setAlert({
-                          variant: "warning",
-                          message: "You are now signed out!",
-                        });
-                      }}
-                    >
-                      Logout
-                    </Button>
-                  </Navbar.Text>
-                ) : (
-                  <Navbar.Text>
-                    <Link to="/login">Not Signed In</Link>
-                  </Navbar.Text>
-                )}
+                {userCheck()}
 
                 {/* <Navbar.Text>
                   <Link to="/login">Not signed in</Link>

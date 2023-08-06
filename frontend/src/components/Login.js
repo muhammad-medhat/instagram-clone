@@ -10,7 +10,8 @@ const Login = ({ setAlert, setUser }) => {
       .then((data) => {
         if (data.length > 0) {
           setAlert({ variant: "success", message: "Successfully logged in!" });
-          setUser(data[0].username);
+          setUser(data[0].first_name);
+          // console.log({ data });
           navigate("/");
         } else {
           setAlert({
