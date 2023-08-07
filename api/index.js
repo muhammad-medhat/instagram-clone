@@ -2,8 +2,14 @@ import express from "express";
 import bodyParser from "body-parser";
 import multer from "multer";
 import functions from "./apiCalls.js";
-const { createUser, getProfile, createPost, getAllPosts, getPostsOfFollowing } =
-  functions;
+const {
+  createUser,
+  getProfile,
+  createPost,
+  getAllPosts,
+  getPostsOfFollowing,
+  searchForUsername,
+} = functions;
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -55,6 +61,11 @@ app.get("/getAllPosts", (req, res) => {
       res.json(data);
     })
     .catch((err) => res.json([]));
+});
+
+app.get("/searchForUsername", (req, res) => {
+  const text = req.query.text;
+  searchForUsername(text).then((data) => res.json(data));
 });
 
 app.listen(3001, () => console.log("started"));
