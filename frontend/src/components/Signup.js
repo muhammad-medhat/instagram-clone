@@ -20,9 +20,9 @@ const Signup = ({ setAlert, setUser }) => {
     console.log(
       "jjjj",
       JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        username: username,
+        firstName,
+        lastName,
+        username,
       })
     );
     const requestOptions = {
@@ -31,9 +31,9 @@ const Signup = ({ setAlert, setUser }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        username: username,
+        firstName,
+        lastName,
+        username,
       }),
     };
     fetch("/createUser", requestOptions)

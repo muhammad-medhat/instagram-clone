@@ -6,10 +6,8 @@ import { nanoid } from "nanoid";
 const functions = {};
 
 functions.createUser = (firstName, lastName, username) => {
-  console.log("inp", firstName, lastName, username);
-  /**
-   * unknown bug username is not sent correctly from frontend
-   */
+  console.log("inp", { firstName, lastName, username });
+
   return sanityClient.create({
     _type: "user",
     first_name: firstName,
@@ -21,11 +19,9 @@ functions.createUser = (firstName, lastName, username) => {
 
 functions.getProfile = (user) => {
   console.log({ user });
-  /**
-   * i will let it check for first_name because of the bug in setting username
-   */
+
   return sanityClient.fetch(
-    `*[_type == "user" && first_name == $username]{
+    `*[_type == "user" && username == $username]{
       ...,
       "following": count(following),
       "followers": *[_type == "user" && references(^._id)],
@@ -41,7 +37,7 @@ functions.getProfile = (user) => {
 };
 functions.getUserId = (user) => {
   return sanityClient.fetch(
-    `*[_type == "user" && first_name == $username]{
+    `*[_type == "user" && username == $username]{
     _id
   }`,
     { username: user }
@@ -65,4 +61,38 @@ functions.createPost = (user, caption, image) => {
       })
     );
 };
+
+functions.getAllPosts = () => {
+  return sanityClient.fetch(`*[_type == "post"]{
+    ...,
+    "username": author->username,
+    photo{
+      asset->{
+        _id,
+        url
+      }
+    }
+  }`);
+};
+
+functions.getPostsOfFollowing = (username) => {
+  return sanityClient.fetch(
+    `*[_type == "user" && username == $username]{
+    following[]->{
+      "posts": *[_type == "post" && references(^._id)]{
+        ...,
+        "username": author->username,
+        photo{
+          asset->{
+            _id,
+            url
+          }
+        }
+      }
+    }
+  }`,
+    { username }
+  );
+};
+
 export default functions;

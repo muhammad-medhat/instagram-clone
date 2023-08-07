@@ -79,7 +79,13 @@ function App() {
         ) : null}
         <div className="center p-5">
           <Routes>
-            <Route element={<AllPosts />} path="/" exact />
+            <Route
+              element={
+                <AllPosts setAlert={setAlert} setUser={setUser} user={user} />
+              }
+              path="/"
+              exact
+            />
             <Route
               element={<Login setAlert={setAlert} setUser={setUser} />}
               path="/login"
